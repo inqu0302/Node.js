@@ -7,3 +7,6 @@ GRANT ALL privileges ON *.*
 TO 'node'@'%';
 
 CREATE DATABASE nodeDB;
+USE nodeDB;
+desc tbl_bbs;
+drop table tbl_bbs;
