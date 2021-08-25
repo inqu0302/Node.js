@@ -30,6 +30,7 @@ block content
 			if(td.tagName === "TD"){
 				const tr = td.parentsNode
 				const b_id = tr.dataset.id
-				alert(b_id)
+				//- alert(b_id)
+				document.location.href=`/bbs/detail?b_id=${b_id}`
 			}
 		})
