@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <!-- JQuery를 사용하기 전에 반드시 호출해주어야 한다 -->
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <style>
+      div.pa {
+        border: 1px solid blue;
+        padding: 10px;
+        margin: 5px;
+      }
+
+      div.pa div {
+        border: 1px solid red;
+      }
+    </style>
+    <script>
+      // 3개 모두 같은 역활 HTML 페이지가 모두 그려진후 스크립트를 작동시키겠다
+      document.addEventListener("DOMContentLoaded", () => {
+        document.querySelector("#ga").addEventListener("click", (e) => {});
+      });
+      // document.querySelector("document")
+      $(document).ready(function () {
+        // Jquery 문법이 적용되는 영역
+      });
+
+      // 최신 Jquery 시작점
+
+      $(function () {
+        $("#ga").on("click", function () {
+          alert($(this).text());
+        });
+        // this 를 사용하기 위해서는 => 함수를 사용하면 안된다
+        $("#na").on("click", (e) => {
+          alert($(e.target).text());
+        });
+        $("#da").on("click", function () {
+          $(this).fadeOut();
+        });
+
+        $(() => {
+          //JQuery 코드가 작동되는 영역
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <h1>반갑습니다</h1>
+    <div class="pa">
+      <div id="ga">가</div>
+    </div>
+    <div class="pa">
+      <div id="na">나</div>
+    </div>
+    <div class="pa">
+      <div id="da">다</div>
+    </div>
+  </body>
+</html>

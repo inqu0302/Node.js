@@ -8,6 +8,7 @@ var app = express();
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 const bbsRouter = require("./routes/bbsRouter");
+const fileRouter = require("./routes/fileRouter");
 
 const sequelize = require("./models/index").sequelize;
 
@@ -24,9 +25,11 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
+// 해당 주소가 요청되면 ,*Router를 호출
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/bbs", bbsRouter);
+app.use("/file", fileRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
