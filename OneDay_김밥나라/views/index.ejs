@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>김밥나라</title>
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      section {
+        border: 1px solid blue;
+        width: 80%;
+        margin: 5px auto;
+        display: grid;
+        grid-template-columns: 25% 25% 25% 25%;
+      }
+
+      div {
+        display: flex;
+        flex-direction: column;
+        width: 80%;
+        height: 100px;
+        border: 1px solid red;
+        margin: 10px auto;
+      }
+    </style>
+  </head>
+  <body>
+    <section>
+      <div class="tb1" data-id="tb1">1</div>
+      <div class="tb2" data-id="tb2">2</div>
+      <div class="tb3" data-id="tb3">3</div>
+      <div class="tb4" data-id="tb4">4</div>
+      <div class="tb5" data-id="tb5">5</div>
+      <div class="tb6" data-id="tb6">6</div>
+      <div class="tb7" data-id="tb7">7</div>
+      <div class="tb8" data-id="tb8">8</div>
+      <div class="tb9" data-id="tb9">9</div>
+      <div class="tb10" data-id="tb10">10</div>
+      <div class="tb11" data-id="tb11">11</div>
+      <div class="tb12" data-id="tb12">12</div>
+    </section>
+  </body>
+  <script>
+    document.querySelector("section").addEventListener("click", (e) => {
+      const tag = e.target;
+      const id = tag.dataset.id;
+      alert(id);
+
+      document.location.href = "/order?t_id=" + id;
+    });
+  </script>
+</html>

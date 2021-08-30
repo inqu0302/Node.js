@@ -4,7 +4,6 @@
 
 npm install mysql2
 npm install sequelize
-npm install
 
 ## depency upgrade
 
