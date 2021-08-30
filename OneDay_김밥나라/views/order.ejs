@@ -6,5 +6,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
   </head>
-  <body></body>
+  <body>
+    <div class="main">
+      <div class="product">
+        <h1><%- ORDER.o_table %>번 테이블</h1>
+        <table class="product_list">
+          <tr>
+            <th>상품명</th>
+            <th>금액</th>
+          </tr>
+          <% PD.forEach((vo, index)=>{ %>
+          <tr>
+            <td><%- PD.p_name %></td>
+            <td><%- PD.p_price %></td>
+          </tr>
+          <% }) %>
+        </table>
+        <button>주문추가</button>
+      </div>
+      <div class="order">
+        <table class="order_list">
+          <tr></tr>
+        </table>
+      </div>
+    </div>
+  </body>
 </html>

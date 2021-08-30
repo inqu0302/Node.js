@@ -11,3 +11,10 @@ USE posDB;
 
 drop table tbl_products;
 drop table tbl_orders;
+
+desc table tbl_products;
+desc table tbl_orders;
+
+SELECT * FROM tbl_products;
+
+SELECT * FROm tbl_orders;
