@@ -1,0 +1,40 @@
+extends layout
+
+block content
+	script(src="/js/table.js")
+	style.
+		section.main{
+			display:flex;
+			flex-wrap:wrap;
+			justify-content:center;
+			align-items:center;
+		}
+		div.table{
+			width:200px;
+			height:100px;
+			border:1px solid green;
+			margin:10px;
+
+			text-align:center;
+			line-height:100px;
+
+			background-color: #33bb50;
+			color: white;
+			font-size: 20px;
+
+			cursor: pointer;
+		}
+		div.table:hover{
+			box-shadow:2px 2px 2px #aaa 
+		}
+
+		div.order_yes {
+			background-color: tomato;
+		}
+
+	each table,index in TABLES
+		if(table.order_count > 0)
+			div.table.order_yes(data-table_id= table.id) !{table.table_name}
+				span (!{table.order_count})
+		else 
+			div.table.order(data-table_id= table.id) !{table.table_name}
