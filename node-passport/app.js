@@ -16,13 +16,29 @@ import logger from "morgan";
 
 import session from "express-session";
 import passport from "passport";
-import passportConfig from "./modules/passport.js";
+import passportConfig from "./modules/PassportConfig.js";
 
 import indexRouter from "./routes/index.js";
 import usersRouter from "./routes/users.js";
 import cors from "cors";
+import Mongoose from "mongoose";
 
 const app = express();
+
+// mongoose 를 사용한 mongoDB 연결 설정
+const mongoose = Mongoose;
+mongoose.connect("mongodb://localhost:27017/users");
+
+// connection 객체를 변수에 임시 저장
+const dbConn = mongoose.connection;
+// mongoDB에 연결이 성공하면 호출되는 event
+dbConn.once("open", () => {
+  console.log("!!!MongoDB OK!!!");
+});
+// 작동되는 과정에서 오류가 발생하면 호출
+dbConn.on("error", () => {
+  console.err;
+});
 
 // Disable the fingerprinting of this web technology. 경고
 app.disable("x-powered-by");
@@ -37,10 +53,30 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join("./public")));
 
+// 하루동안 유지 밀리초 * 60초 * 60분* 24시간
+const oneDay = 1000 * 60 * 60 * 24;
 // 세션 활성화
-app.use(session({ secret: "aa1234", resave: true, saveUninitialized: false }));
+app.use(
+  session({
+    secret: "aa1234",
+    resave: false,
+    saveUninitialized: true,
+    cookid: {
+      secure: false,
+      httpOnly: false,
+      maxAge: oneDay,
+    },
+  })
+);
 app.use(passport.initialize()); // passport start
 app.use(passport.session());
+passportConfig();
+
+// response를 할때 session 에 담긴값을클라이언트로 전송하기 위한 옵션 설정
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "http://localhost:3000");
+  next();
+});
 
 const whiteURL = ["http://localhost:3000"];
 const corsOption = {
@@ -48,6 +84,7 @@ const corsOption = {
     const isWhiteURL = whiteURL.indexOf(origin) !== -1;
     callback(null, isWhiteURL);
   },
+  credentials: true,
 };
 
 app.use(cors(corsOption));
