@@ -1,7 +1,7 @@
-import express from "express";
 import passport from "passport";
-
+import express from "express";
 const router = express.Router();
+import User from "../models/User.js";
 
 /* GET users listing. */
 router.get("/", function (req, res, next) {
@@ -15,8 +15,8 @@ router.post("/", (req, res) => {
   // 로그인이 안되거나 session 이 유효하지 않으면
   // req.user 가 없다
   if (req.user) {
-    console.log("session OK");
-    res.json(res.ser);
+    console.log("session OK", req.user);
+    res.json(req.user);
   } else {
     res.json([]);
   }
@@ -50,15 +50,14 @@ router.post("/login", passport.authenticate("local"), (req, res) => {
  * 		https를 사용하면 데이터가 암호화 되어 전송된다
  * 		서버에서 받을대 req.body.변수
  */
-router.post("/join", passport.authenticate("local"), (req, res) => {
-  res.json({
-    userid: req.body.userid,
-    password: req.body.password,
-    eMail: req.body.eMail,
-  });
-  console.log("join", req.body);
+router.post("/join", (req, res) => {
+  console.log(req.body);
+  const { userid, password, email } = req.body;
+  console.log("userid", userid);
+  console.log("password", password);
+  console.log("email", email);
 
-  const userVO = new user(req.body);
+  const userVO = new User(req.body);
 
   userVO.save((err, data) => {
     res.json(data);
